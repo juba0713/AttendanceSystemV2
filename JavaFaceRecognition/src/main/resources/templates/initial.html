@@ -11,16 +11,14 @@
 		<div class="content">
 			<div class="attendance-btn">Attendance</div>
 			<div class="login-btn">Login</div>
-	<!--		<video class="video" id="video" autoplay></video>
-			<div class="person-name">Unknown</div>-->
 		</div>
 	</div>
 </body>
 <script>
 	const content = document.querySelector('.content');
 	
-	let videoElement = `<video id="video" autoplay></video>
-	  								<canvas id="canvas"></canvas>`;	  							
+	let videoElement = `<video class="video" id="video" autoplay></video>
+						<div class="person-name">Unknown</div>`;	  							
 	let attendance = `<div class="attendance-btn">Attendance</div>
 								  <div class="login-btn">Login</div>`;
 	let attendanceBtn = document.querySelector('.attendance-btn');

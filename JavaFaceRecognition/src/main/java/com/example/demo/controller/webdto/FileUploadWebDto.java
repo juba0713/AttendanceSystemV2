@@ -12,4 +12,8 @@ public class FileUploadWebDto {
 	MultipartFile image1;
 	
 	MultipartFile image2;
+	
+	public Boolean hasFound;
+	
+	public String personName;
 }
