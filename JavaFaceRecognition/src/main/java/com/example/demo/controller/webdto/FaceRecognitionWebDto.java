@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
-public class FileUploadWebDto {
+public class FaceRecognitionWebDto {
 	
 	String test;
 	

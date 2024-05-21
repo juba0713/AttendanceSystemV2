@@ -40,7 +40,8 @@ import java.io.InputStream;
 
 import java.util.concurrent.Executors;
 
-import com.example.demo.controller.webdto.FileUploadWebDto;
+import com.example.demo.controller.webdto.FaceRecognitionWebDto;
+import com.example.demo.model.dto.FaceRecognitionInOutDto;
 import com.example.demo.model.service.FaceComparisonService;
 
 @Controller
@@ -54,7 +55,7 @@ public class FileUploadController {
 	}
 
 	@GetMapping("/test")
-	public String show(@ModelAttribute FileUploadWebDto webDto) {
+	public String show(@ModelAttribute FaceRecognitionWebDto webDto) {
 
 		return "test";
 	}
@@ -68,13 +69,19 @@ public class FileUploadController {
 	}
 	
 	@PostMapping("/compare")
-    public ResponseEntity<Boolean> compareFaces(
+    public ResponseEntity<FaceRecognitionWebDto> compareFaces(
         @RequestParam("image1") MultipartFile file1
     ) throws IOException {
 		
-        boolean areSimilar = faceRecognitionService.compareFaces(file1);
+        FaceRecognitionInOutDto outDto = faceRecognitionService.compareFaces(file1);
         
-        return ResponseEntity.ok(areSimilar);
+        FaceRecognitionWebDto webDto = new FaceRecognitionWebDto();
+        
+        webDto.setHasFound(outDto.getHasFound());
+        
+        webDto.setPersonName(outDto.getPersonName());
+        
+        return ResponseEntity.ok(webDto);
 	    
     }
 	

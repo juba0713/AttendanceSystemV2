@@ -95,7 +95,21 @@ body,html {
 	color: #fff;
 }
 
+.checked{
+	font-size: 15px;
+	color: #fff;
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
 
+.checked img{
+	width: 20px;
+	height: 20px;
+	
+}
 
 
 /*

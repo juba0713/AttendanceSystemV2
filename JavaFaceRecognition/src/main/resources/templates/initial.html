@@ -11,6 +11,7 @@
 		<div class="content">
 			<div class="attendance-btn">Attendance</div>
 			<div class="login-btn">Login</div>
+			
 		</div>
 	</div>
 </body>
@@ -18,7 +19,8 @@
 	const content = document.querySelector('.content');
 	
 	let videoElement = `<video class="video" id="video" autoplay></video>
-						<div class="person-name">Unknown</div>`;	  							
+						<div class="person-name">Unknown</div>
+						<div style="display: none;" class="checked">Attendance Checked!<img src="/icons/checked.svg"></div>`;	  							
 	let attendance = `<div class="attendance-btn">Attendance</div>
 								  <div class="login-btn">Login</div>`;
 	let attendanceBtn = document.querySelector('.attendance-btn');
@@ -71,17 +73,17 @@
 		          if (!response.ok) {
 		              throw new Error('Network response was not ok.');
 		          }
-		          return response.text(); // Or response.json() if expecting JSON
+		          return response.json(); // Or response.json() if expecting JSON
 		      })
 		      .then(data => {
-				  if(data=='true'){
+				  console.log(data.hasFound);
+				  if(data.hasFound){
 					  clearInterval(recognitionInterval); // Stop the interval
 					  let personName = document.querySelector('.person-name');
-					  personName.innerHTML = "FOUND";
+					  let checked = document.querySelector('.checked');
+					  personName.innerHTML = data.personName;
+					  checked.style.display = 'flex';
 		              console.log("Match found!");
-				  }else{
-					  console.log(typeof data);
-					  console.log(data);
 				  }
 		    	  
 		      })
@@ -91,7 +93,7 @@
 		      });
 		
 	
-		},1000);
+		},2000);
     }
        
     function dataURLtoBlob(dataurl) {

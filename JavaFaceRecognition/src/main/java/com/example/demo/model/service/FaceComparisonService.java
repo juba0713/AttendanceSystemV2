@@ -6,9 +6,11 @@ import org.opencv.core.Mat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.dto.FaceRecognitionInOutDto;
+
 @Service
 public interface FaceComparisonService {
 
-	public boolean compareFaces(MultipartFile file1)throws IOException ;
+	public FaceRecognitionInOutDto compareFaces(MultipartFile file1)throws IOException ;
 	
 }

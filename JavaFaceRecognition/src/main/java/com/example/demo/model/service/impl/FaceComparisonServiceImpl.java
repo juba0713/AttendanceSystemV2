@@ -18,24 +18,27 @@ import org.opencv.objdetect.CascadeClassifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.dto.FaceRecognitionInOutDto;
 import com.example.demo.model.service.FaceComparisonService;
 
 @Service
 public class FaceComparisonServiceImpl implements FaceComparisonService{
 
 	private static final String CASCADE_CLASSIFIER_PATH = "C:\\Users\\Julius Basas\\ocv\\idea\\haarcascade_frontalface_alt.xml"; 
-    private static final double SIMILARITY_THRESHOLD = 0.2; 
+    private static final double SIMILARITY_THRESHOLD = 0.12; 
     
     private static final String FACES_PATH = "C:\\Users\\Julius Basas\\ocv\\faces\\";
     
 	@Override
-	public boolean compareFaces(MultipartFile file1) throws IOException {
+	public FaceRecognitionInOutDto compareFaces(MultipartFile file1) throws IOException {
+		
+		FaceRecognitionInOutDto outDto = new FaceRecognitionInOutDto();
 		
 		File facesDirectory = new File(FACES_PATH);
         File[] imageFiles = facesDirectory.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png"));
         
         if (imageFiles == null || imageFiles.length == 0) {
-            return false;
+            outDto.setHasFound(false);
         }
 		 
         
@@ -75,14 +78,18 @@ public class FaceComparisonServiceImpl implements FaceComparisonService{
 
                 System.out.println("Comparing with " + imageFile.getName() + ": " + (distance < SIMILARITY_THRESHOLD) + " : " + distance);
 
-                if (distance < SIMILARITY_THRESHOLD) {
-                    return true; 
+                if (distance <= SIMILARITY_THRESHOLD) {
+                    outDto.setHasFound(true); 
+                    outDto.setPersonName(imageFile.getName());
+                    
+                    return outDto;
                 }
-        	}
-            
+        	}        
         }
+        
+        outDto.setHasFound(false);
 
-        return false;
+        return outDto;
 	}
 	
 	   private Mat getHistogram(Mat image) {
