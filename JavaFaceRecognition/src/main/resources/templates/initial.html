@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/initial.css}"/>
+</head>
+<body>
+	<div class="container">
+		<div class="content">
+			<div class="attendance-btn">Attendance</div>
+			<div class="login-btn">Login</div>
+	<!--		<video class="video" id="video" autoplay></video>
+			<div class="person-name">Unknown</div>-->
+		</div>
+	</div>
+</body>
+<script>
+	const content = document.querySelector('.content');
+	
+	let videoElement = `<video id="video" autoplay></video>
+	  								<canvas id="canvas"></canvas>`;	  							
+	let attendance = `<div class="attendance-btn">Attendance</div>
+								  <div class="login-btn">Login</div>`;
+	let attendanceBtn = document.querySelector('.attendance-btn');
+	
+	attendanceBtn.addEventListener('click', function() {
+		content.innerHTML = '';
+		content.innerHTML = videoElement;
+		
+		const video = document.getElementById('video');
+    	const captureButton = document.getElementById('captureButton');
+    
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+        startRecognition(); 
+      })
+      .catch(error => {
+        console.error('Error accessing camera:', error);
+      });
+
+	});
+	
+	let recognitionInterval;
+	
+	function startRecognition() {
+	    recognitionInterval = setInterval(async () => {
+	    	 const canvas = document.createElement('canvas');
+	         const context = canvas.getContext('2d');
+	    	  canvas.width = video.videoWidth;
+		      canvas.height = video.videoHeight;
+		      context.drawImage(video, 0, 0);
+		
+		      // Get image data URL
+		      const imageDataURL = canvas.toDataURL('image/jpeg');
+		      
+		      const formData = new FormData();
+		      formData.append('image1', dataURLtoBlob(imageDataURL), 'captured_image.jpg');
+		
+		      // Create an image element to display the captured photo
+		      const img = document.createElement('img');
+		      img.src = imageDataURL;
+		      
+		   // Submit Using Fetch (Handle Errors and Responses)
+		      fetch('/compare', {
+		          method: 'POST',
+		          body: formData
+		      })
+		      .then(response => {
+		          if (!response.ok) {
+		              throw new Error('Network response was not ok.');
+		          }
+		          return response.text(); // Or response.json() if expecting JSON
+		      })
+		      .then(data => {
+				  if(data=='true'){
+					  clearInterval(recognitionInterval); // Stop the interval
+					  let personName = document.querySelector('.person-name');
+					  personName.innerHTML = "FOUND";
+		              console.log("Match found!");
+				  }else{
+					  console.log(typeof data);
+					  console.log(data);
+				  }
+		    	  
+		      })
+		      .catch(error => {
+		          console.error('Error:', error);
+		          // Update UI with error message
+		      });
+		
+	
+		},1000);
+    }
+       
+    function dataURLtoBlob(dataurl) {
+        const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    }
+</script>
+</html>

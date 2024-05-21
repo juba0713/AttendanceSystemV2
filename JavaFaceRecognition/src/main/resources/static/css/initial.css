@@ -1,0 +1,137 @@
+@font-face {
+    font-family: VoiceActivated-Regular;
+    src: url("../fonts/VoiceActivatedBB_reg.otf") format("opentype");
+}
+
+@font-face {
+    font-family: VoiceActivated-Bold;
+    font-weight: bold;
+    src: url("../fonts/VoiceActivatedBB_bold.otf") format("opentype");
+}
+
+body,html {
+    background-image: url("https://media.giphy.com/media/cjojgtiigyloyCg3r9/giphy.gif"); /* Use the direct GIF URL */
+    background-repeat: no-repeat;
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center;
+    min-height: 100vh; /* Ensure body height covers the viewport */
+    font-family:  VoiceActivated-Regular;
+    
+}
+
+.container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.content{
+	box-shadow: rgb(255, 0, 255) 0px 1px 3px 0px, rgb(255, 0, 255) 0px 1px 2px 0px;
+	background: #2E2E2E;
+	width: 500px;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+ 	justify-content: center;
+ 	align-items: center;
+ 	gap: 20px;
+ 	border-radius: 20px;
+ 	position: relative;
+ 	padding: 20px;
+ 	box-sizing: border-box;
+}
+	
+.attendance-btn {
+ 	border-radius: 50%;
+   font-size: 30px;
+   font-weight: 600;
+ 	height: 200px;
+ 	width: 200px;
+ 	background: linear-gradient(90deg, rgba(221,94,246,1) 13%, rgba(240,122,229,1) 50%, rgba(173,0,207,1) 97%);
+ 	color: #fff;
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	cursor: pointer;
+ 	position: relative;
+ 	box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+ 	transition: 1s;
+}
+
+.attendance-btn:hover{
+	 height: 220px;
+ 	width: 220px;
+}
+
+.login-btn{
+	position: absolute;
+	bottom: -60px;
+	padding: 10px;
+	color: #fff;
+	font-size: 20px;
+	box-shadow: rgb(255, 0, 255) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+	border-radius: 10px;
+	width: 200px;
+	text-align: center;
+}
+
+.login-btn:hover{
+  border-color: #fff;
+  color: #fff;
+  box-shadow: 0 0 10px 0 #fff inset, 0 0 10px 4px fuchsia;
+  transition: all 150ms ease-in-out;
+  
+}
+
+.video{
+	width: 100%;
+	height: 80%;
+}
+
+.person-name{
+	font-size: 20px;
+	font-weight: 600;
+	color: #fff;
+}
+
+
+
+
+/*
+.box {
+  --b: 20px;   
+  --c: red;   
+  --w: 20px;  
+  
+
+  padding: var(--b); 
+  
+  position:relative;  
+  width:200px;
+  height:100px;
+  box-sizing:border-box;
+  margin:5px;
+  display:inline-flex;
+  font-size:30px;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+ 
+}
+.box::before {
+  content :"";
+  position: absolute;
+  inset: 0;
+  background: var(--c,red);
+  --_g: #0000 90deg,#000 0;
+  --_p: var(--w) var(--w) no-repeat;
+  --mask:
+    conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--_g)) 0    0    / var(--_p),
+    conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g)) 100% 0    / var(--_p),
+    conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 0    100% / var(--_p),
+    conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p);
+    -webkit-mask: var(--mask);
+            mask: var(--mask);
+}*/
